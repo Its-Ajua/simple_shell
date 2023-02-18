@@ -13,8 +13,8 @@ int main(void)
 		printf("$ ");
 		getline(&command, &len, stdin);
 
-		stkn = strtok(command, "\n");
-		
+		stkn = strtok(command, " \n");
+
 		char **arr = malloc(sizeof(char *) * 32);
 
 		arr[0] = stkn;
