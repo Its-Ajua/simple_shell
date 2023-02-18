@@ -25,7 +25,7 @@ int main(void)
 
 		arr[0] = stkn;
 
-		if (_strcmp(arr[0], "exit") == 0)
+		if (strcmp(arr[0], "exit") == 0)
 			exit(0);
 
 		j = 1;
@@ -38,7 +38,7 @@ int main(void)
 		}
 
 		fa_pid = fork();
-		if (_strcmp(arr[0], "exit") == 0 && (arr[1] == NULL))
+		if (strcmp(arr[0], "exit") == 0 && (arr[1] == NULL))
 			exit(0);
 		if (fa_pid == -1)
 		{
