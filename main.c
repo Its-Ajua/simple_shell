@@ -32,6 +32,8 @@ int main(void)
 		}
 
 		fa_pid = fork();
+		if (strcmp(arr[0], "exit") == 0 && (arr[1] == NULL))
+			exit(0);
 		if (fa_pid == -1)
 		{
 			perror("Error");
@@ -39,7 +41,11 @@ int main(void)
 		}
 		else if (fa_pid == 0)
 		{
-			execve(arr[0], arr, NULL);
+			if (execve(arr[0], arr, NULL) == -1)
+			{
+				perror(arr[0]);
+				return (0);
+			}
 		}
 		else
 		{
