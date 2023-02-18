@@ -1,5 +1,11 @@
 #include "shell.h"
 
+/**
+ * main - Checks for a command prompt and executes
+ *
+ * Return: 0 on success
+ */
+
 int main(void)
 {
 	char *command = NULL;
