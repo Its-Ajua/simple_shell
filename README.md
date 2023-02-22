@@ -6,7 +6,11 @@ The shell is a command-line interpreter or shell that provides a command line us
 
 # Installation
 To install the shell, do this:
+```
 $ git clone https://github.com/Its-Ajua/simple_shell.git
+```
 
 To compile, use this:
+```
 $ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+```
