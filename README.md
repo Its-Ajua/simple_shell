@@ -14,3 +14,8 @@ To compile, use this:
 ```
 $ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 ```
+
+To run shell, do this:
+```
+./hsh
+```
