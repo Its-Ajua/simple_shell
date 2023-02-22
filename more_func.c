@@ -67,3 +67,56 @@ int _strlen(char *s)
 
 	return (i);
 }
+
+/**
+ * _strcat - Concatenates two strings
+ * @dest: The destination string
+ * @src: The source string
+ *
+ * Return: A pointer to the destination string
+ */
+char *_strcat(char *dest, char *src)
+{
+	int str = 0, i = 0;
+
+	while (dest[str])
+		str++;
+
+	for (i = 0; src[i] != '\0'; i++)
+	{
+		dest[str] = src[i];
+		dlen++;
+	}
+
+	dest[dlen] = '\0';
+	return (dest);
+}
+
+/**
+ * _strdup - Duplicate a string
+ * @s: the string to be duplicated
+ *
+ * Return: the duplicated string
+ */
+char *_strdup(char *s)
+{
+	int val = 0, length = 1;
+	char *dupStr;
+
+	if (s == NULL)
+		return (NULL);
+
+	length = _strlen(s);
+	dupStr = malloc((sizeof(char) * length) + 1);
+	if (dupStr == NULL)
+		return (NULL);
+
+	while (val < length)
+	{
+		dupStr[val] = s[val];
+		val++;
+	}
+
+	dupStr[val] = '\0';
+	return (dupStr);
+}

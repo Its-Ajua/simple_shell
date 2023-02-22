@@ -9,6 +9,7 @@
 void print_env(void)
 {
 	int i = 0, j = 0;
+	char environ;
 
 	while (environ[i])
 	{
