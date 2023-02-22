@@ -1,57 +1,44 @@
 #include "shell.h"
 
-int main(void)
+/**
+ * main - entry point
+ * @ac: arg count
+ * @av: arg vector
+ *
+ * Return: 0 on success, 1 on error
+ */
+int main(int ac, char **av)
 {
-	char *command = NULL;
-	size_t len = 0;
-	char *stkn;
-	pid_t fa_pid;
-	int status, j;
+	info_t info[] = { INFO_INIT };
+	int fd = 2;
 
-	while (1)
+	asm ("mov %1, %0\n\t"
+		"add $3, %0"
+		: "=r" (fd)
+		: "r" (fd));
+
+	if (ac == 2)
 	{
-		printf("$ ");
-		getline(&command, &len, stdin);
-
-		stkn = strtok(command, "\n");
-		
-		char **arr = malloc(sizeof(char *) * 32);
-
-		arr[0] = stkn;
-
-		if (strcmp(arr[0], "exit") == 0)
-			exit(0);
-
-		j = 1;
-
-		while (stkn != NULL)
+		fd = open(av[1], O_RDONLY);
+		if (fd == -1)
 		{
-			stkn = strtok(NULL, "  \n");
-			arr[j] = stkn;
-			j++;
-		}
-
-		fa_pid = fork();
-		if (strcmp(arr[0], "exit") == 0 && (arr[1] == NULL))
-			exit(0);
-		if (fa_pid == -1)
-		{
-			perror("Error");
-			return (1);
-		}
-		else if (fa_pid == 0)
-		{
-			if (execve(arr[0], arr, NULL) == -1)
+			if (errno == EACCES)
+				exit(126);
+			if (errno == ENOENT)
 			{
-				perror(arr[0]);
-				return (0);
+				_eputs(av[0]);
+				_eputs(": 0: Can't open ");
+				_eputs(av[1]);
+				_eputchar('\n');
+				_eputchar(BUF_FLUSH);
+				exit(127);
 			}
+			return (EXIT_FAILURE);
 		}
-		else
-		{
-			wait(&status);
-		}
+		info->readfd = fd;
 	}
-	free(command);
-	return (0);
+	populate_env_list(info);
+	read_history(info);
+	hsh(info, av);
+	return (EXIT_SUCCESS);
 }
