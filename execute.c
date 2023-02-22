@@ -91,6 +91,7 @@ int exec(char *comname, char **opt)
 			return (-1);
 		case 0:
 			execve(comname, opt, environ);
+			return (1);
 		default:
 			do {
 				waitpid(child, &status, WUNTRACED);

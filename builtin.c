@@ -21,6 +21,7 @@ int execbuilt(char **tkn, char *line)
 			{
 				case 0:
 					handle_exit(tkn, line);
+					return (1);
 				case 1:
 					chdir(tkn[1]);
 					return (1);

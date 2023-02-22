@@ -25,3 +25,30 @@ int word_count(char *s)
 
 	return (j);
 }
+
+/**
+ * deli_count - Counts delimiters in a string
+ * @s: The string that contains the delimiters
+ * @deli: The delimiters to will find in the string
+ *
+ * Return: The number of delimiters in the string
+ */
+
+int deli_count(char *s, char *deli)
+{
+	int i = 0, j = 0, cw = 0;
+
+	while (deli[i])
+	{
+		j = 0;
+		while (s[j])
+		{
+			if (s[j] == deli[i])
+				cw++;
+			j++;
+		}
+		i++;
+	}
+
+	return (cw);
+}

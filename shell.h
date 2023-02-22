@@ -20,7 +20,7 @@ int _strcmp(char *s1, char *s2);
 int _strlen(const char *s);
 char *_strcat(char *dest, char *src);
 char *_strdup(char *s);
-void handle_exit(char **tkn, char *line);
+void handle_exit(char **tokn, char *line);
 char *removeLine(char *s);
 char *_getsenv(const char *var);
 int word_count(char *s);
