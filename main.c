@@ -8,56 +8,42 @@
 
 int main(void)
 {
-	char *command = NULL;
-	size_t len = 0;
-	char *stkn;
-	pid_t fa_pid;
-	int status, j;
+	char *command = NULL, **tkn = NULL;
+	int length = 0, flag = 0;
+	size_t line_size = 0;
+	ssize_t line_len = 0;
 
-	while (1)
+	while (line_len >= 0)
 	{
-		printf("$ ");
-		getline(&command, &len, stdin);
-
-		stkn = strtok(command, " \n");
-
-		char **arr = malloc(sizeof(char *) * 32);
-
-		arr[0] = stkn;
-
-		if (strcmp(arr[0], "exit") == 0)
-			exit(0);
-
-		j = 1;
-
-		while (stkn != NULL)
+		signal(SIGINT, sign_handler);
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "($) ", 4);
+		line_len = getline(&command, &line_size, stdin);
+		if (line_len == -1)
 		{
-			stkn = strtok(NULL, "  \n");
-			arr[j] = stkn;
-			j++;
+			if (isatty(STDIN_FILENO))
+				write(STDOUT_FILENO, "\n", 1);
+			break;
 		}
 
-		fa_pid = fork();
-		if (strcmp(arr[0], "exit") == 0 && (arr[1] == NULL))
-			exit(0);
-		if (fa_pid == -1)
+		length = word_count(command);
+		if (command[0] != '\n' && length > 0)
 		{
-			perror("Error");
-			return (1);
-		}
-		else if (fa_pid == 0)
-		{
-			if (execve(arr[0], arr, NULL) == -1)
+			tkn = tokenize(command, " \t", length);
+			flag = execbuilt(tkn, command);
+			if (!flag)
 			{
-				perror(arr[0]);
-				return (0);
+				tkn[0] = find(tkn[0]);
+				if (tkn[0] && access(tkn[0], X_OK) == 0)
+					exec(tkn[0], tkn);
+				else
+					perror("./hsh");
 			}
-		}
-		else
-		{
-			wait(&status);
+
+			frees_tkn(tkn);
 		}
 	}
+
 	free(command);
 	return (0);
 }

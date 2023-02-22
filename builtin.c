@@ -11,7 +11,7 @@
 int execbuilt(char **tkn, char *line)
 {
 	int i = 0;
-	char *builtincommands[] = { "exit", "cd", "help", "env", NULL };
+	char *builtincommands[] = {"exit", "cd", "help", "env", NULL };
 
 	while (builtincommands[i])
 	{
@@ -22,7 +22,7 @@ int execbuilt(char **tkn, char *line)
 				case 0:
 					handle_exit(tkn, line);
 				case 1:
-					cdir(tkn[1]);
+					chdir(tkn[1]);
 					return (1);
 				case 2:
 					open_help();

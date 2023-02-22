@@ -58,7 +58,7 @@ int _strcmp(char *s1, char *s2)
  * Return: Length of the string
  */
 
-int _strlen(char *s)
+int _strlen(const char *s)
 {
 	int i = 0;
 
@@ -85,10 +85,10 @@ char *_strcat(char *dest, char *src)
 	for (i = 0; src[i] != '\0'; i++)
 	{
 		dest[str] = src[i];
-		dlen++;
+		str++;
 	}
 
-	dest[dlen] = '\0';
+	dest[str] = '\0';
 	return (dest);
 }
 
