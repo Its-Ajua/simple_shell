@@ -1,4 +1,3 @@
-#include "shell.h"
 
 /**
  * input_buf - buffers chained commands
@@ -149,6 +148,7 @@ int _getline(info_t *info, char **ptr, size_t *length)
 	s += k - i;
 	i = k;
 	p = new_p;
+	B
 
 	if (length)
 		*length = s;
@@ -158,6 +158,7 @@ int _getline(info_t *info, char **ptr, size_t *length)
 
 /**
  * sigintHandler - blocks ctrl-C
+ * B
  * @sig_num: the signal number
  *
  * Return: void
